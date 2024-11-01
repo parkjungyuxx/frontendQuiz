@@ -20,3 +20,10 @@ const products = [
     { id: 19, name: "Fan", price: 80, stock: 50, category: "Appliances" },
     { id: 20, name: "Printer", price: 250, stock: 22, category: "Electronics" },
   ];
+
+  const obj1 = products.pop()
+  const obj2 = products.shift()
+  products.unshift(obj1);
+  products.push(obj2)
+  
+  console.log(products)

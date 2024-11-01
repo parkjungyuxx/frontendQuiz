@@ -21,5 +21,5 @@ const products = [
     { id: 20, name: "Printer", price: 250, stock: 22, category: "Electronics" },
   ];
 
-  const obj = products.filter(el => el.category === "Furniture");
-  console.log(obj);
+  products.sort((a,b) => b.price - a.price);
+  console.log(products);

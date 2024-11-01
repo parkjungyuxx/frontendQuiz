@@ -21,5 +21,6 @@ const products = [
     { id: 20, name: "Printer", price: 250, stock: 22, category: "Electronics" },
   ];
 
-  const obj = products.filter(el => el.category === "Furniture");
-  console.log(obj);
+  const result = products.reduce((acc, num) => acc > num.price ? acc : num.price, 0 );
+  console.log(result)
+  

@@ -20,6 +20,3 @@ const products = [
     { id: 19, name: "Fan", price: 80, stock: 50, category: "Appliances" },
     { id: 20, name: "Printer", price: 250, stock: 22, category: "Electronics" },
   ];
-
-  const obj = products.filter(el => el.category === "Furniture");
-  console.log(obj);
