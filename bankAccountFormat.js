@@ -22,7 +22,6 @@
 
 // const encryption = number => {
 //     const a = number.split("-");
-//     a.splice(1,1,"****");
 //     const b = a.join("-")
 //     console.log(b)
 // }
