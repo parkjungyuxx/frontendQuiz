@@ -113,7 +113,9 @@
       width: 100%;
       height: 100vh;
       backdrop-filter: blur(8px);
+      background-size: cover;
     }
+    
 
     @keyframes rotateAni {
       0% {
@@ -160,14 +162,16 @@
           <div class="disk_inner"></div>
         </div>
         <div class="list_btn_group">
-          <button>&lt;</button>
-          <ul></ul>
-          <button>&gt;</button>
+          <button class="left-btn">&lt;</button>
+          <ul>
+            <!-- <img src="./assets/img/iu_1.jpg" alt=""> -->
+          </ul>
+          <button class="right-btn">&gt;</button>
         </div>
       </section>
       <div class="play_btn_group">
-        <button>P L A Y</button>
-        <button>S T O P</button>
+        <button class="playBtn">P L A Y</button>
+        <button class="stopBtn">S T O P</button>
       </div>
     </main>
     <script src="./js/script.js"></script>

@@ -1,18 +1,88 @@
 const musicListData = [
   {
-    src: './assets/image/iu_0.jpg',
-    color: ['#0272a4', '#f6a564'],
+    src: "./assets/img/iu_0.jpg",
+    color: ["#0272a4", "#f6a564"],
   },
   {
-    src: './assets/image/iu_1.jpg',
-    color: ['#b6bfc8', '#36595b'],
+    src: "./assets/img/iu_1.jpg",
+    color: ["#b6bfc8", "#36595b"],
   },
   {
-    src: './assets/image/iu_2.jpg',
-    color: ['#e58e82', '#6f569f'],
+    src: "./assets/img/iu_2.jpg",
+    color: ["#e58e82", "#6f569f"],
   },
 ];
 
+const AlbumList = [];
+
+musicListData.map((el, i) => {
+  const AlbumContainer = document.querySelector("ul");
+  const AlbumItem = document.createElement("li");
+  const AlbumImg = document.createElement("img");
+  AlbumImg.src = el.src;
+  AlbumItem.appendChild(AlbumImg);
+  AlbumItem.id = i;
+  AlbumContainer.appendChild(AlbumItem);
+  AlbumItem.addEventListener("click", () => {
+    selectAlbum(i);
+  });
+  AlbumList.push(AlbumImg);
+});
+
+const playBtn = document.querySelector(".playBtn");
+const stopBtn = document.querySelector(".stopBtn");
+
+const disk = document.querySelector(".disk");
+
+const leftBtn = document.querySelector(".left-btn");
+const rigthBtn = document.querySelector(".right-btn");
+
+let selectAlbumIndex = null;
+const selectAlbum = (index) => {
+  if (selectAlbumIndex !== null) {
+    AlbumList[selectAlbumIndex].classList.remove("play");
+  }
+  AlbumList[index].classList.add("play");
+  disk.classList.add("active");
+  selectAlbumIndex = index;
+
+  renderBackground(index);
+};
+
+const backgroundImg = document.querySelector(".filter");
+
+const renderBackground = () => {
+  backgroundImg.style.backgroundImage = `url(./assets/img/iu_${selectAlbumIndex}.jpg)`;
+  backgroundImg.style.backgroundSize = "cover";
+};
+
+leftBtn.addEventListener("click", () => {
+  if (selectAlbumIndex === null) return selectAlbum(0);
+  const newIndex =
+    (selectAlbumIndex - 1 + musicListData.length * 2) % musicListData.length;
+  selectAlbum(newIndex);
+});
+
+rigthBtn.addEventListener("click", () => {
+  if (selectAlbumIndex === null) return selectAlbum(0);
+  const newIndex =
+    (selectAlbumIndex + 1 + musicListData.length * 2) % musicListData.length;
+  selectAlbum(newIndex);
+});
+
+playBtn.addEventListener("click", () => {
+  disk.classList.add("active");
+  renderBackground();
+});
+stopBtn.addEventListener("click", () => {
+  disk.classList.remove("active");
+  backgroundImg.style.backgroundImage = "none";
+
+  if (selectAlbumIndex !== null) {
+    const color = musicListData[selectAlbumIndex].color;
+    backgroundImg.style.background = `linear-gradient(120deg, ${color[0]}, ${color[1]})`;
+  }
+});
 /*
 
 문제1.
