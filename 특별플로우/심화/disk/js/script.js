@@ -33,6 +33,7 @@ const playBtn = document.querySelector(".playBtn");
 const stopBtn = document.querySelector(".stopBtn");
 
 const disk = document.querySelector(".disk");
+const diskInner = document.querySelector(".disk_inner");
 
 const leftBtn = document.querySelector(".left-btn");
 const rigthBtn = document.querySelector(".right-btn");
@@ -54,32 +55,37 @@ const selectAlbum = (index) => {
 };
 
 const backgroundImg = document.querySelector(".filter");
-
+const main = document.querySelector("main");
 // 백그라운드 이미지 구현
 const renderBackgroundAlbumImg = (index) => {
+  backgroundImg.style.animation = "none"; // 요놈 play버튼 누를때 딱 처음만 적용되는 문제
   backgroundImg.style.animation = "upToDown 1s linear";
   backgroundImg.style.backgroundImage = `url(./assets/img/iu_${index}.jpg)`;
   backgroundImg.style.backgroundSize = "cover";
+  backgroundImg.style.filter = "blur(8px)";
+  const color = musicListData[index].color;
+  diskInner.style.backgroundColor = `${color[0]}`;
 };
 
 // 사진 대신 색상 구현 해야할 때
 const renderBackgroundColor = (index) => {
-  // backgroundImg.style.animation = "downToUp 1s forwards"; // 요 기능을 넣고 싶음
+  // backgroundImg.style.animation = "downToUp 1s forwards"; // 요놈을 넣고싶음
   const color = musicListData[index].color;
   backgroundImg.style.background = `linear-gradient(120deg, ${color[0]}, ${color[1]})`;
+  diskInner.style.backgroundColor = `${color[0]}`;
 };
 
 leftBtn.addEventListener("click", () => {
   if (selectAlbumIndex === null) return selectAlbum(0);
   const newIndex =
-    (selectAlbumIndex - 1 + musicListData.length) % musicListData.length;
+    (selectAlbumIndex - 1 + musicListData.length) % musicListData.length; // index 음수 방지
   selectAlbum(newIndex);
 });
 
 rigthBtn.addEventListener("click", () => {
   if (selectAlbumIndex === null) return selectAlbum(0);
   const newIndex =
-    (selectAlbumIndex + 1 + musicListData.length) % musicListData.length;
+    (selectAlbumIndex + 1 + musicListData.length) % musicListData.length; // index 음수 방지
   selectAlbum(newIndex);
 });
 
