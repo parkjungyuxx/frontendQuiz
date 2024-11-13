@@ -15,6 +15,7 @@ const musicListData = [
 
 const AlbumList = [];
 
+// 앨범 리스트 map으로 구현
 musicListData.map((el, i) => {
   const AlbumContainer = document.querySelector("ul");
   const AlbumItem = document.createElement("li");
@@ -38,49 +39,65 @@ const leftBtn = document.querySelector(".left-btn");
 const rigthBtn = document.querySelector(".right-btn");
 
 let selectAlbumIndex = null;
+let currentAlbumIndex = null;
+
+// 앨범 리스트의 앨범 클릭시 기능 구현
 const selectAlbum = (index) => {
   if (selectAlbumIndex !== null) {
     AlbumList[selectAlbumIndex].classList.remove("play");
   }
   AlbumList[index].classList.add("play");
-  disk.classList.add("active");
   selectAlbumIndex = index;
 
-  renderBackground(index);
+  if (!isPlaying) {
+    renderBackgroundColor(index);
+  }
 };
 
 const backgroundImg = document.querySelector(".filter");
 
-const renderBackground = () => {
-  backgroundImg.style.backgroundImage = `url(./assets/img/iu_${selectAlbumIndex}.jpg)`;
+// 백그라운드 이미지 구현
+const renderBackgroundAlbumImg = (index) => {
+  backgroundImg.style.backgroundImage = `url(./assets/img/iu_${index}.jpg)`;
   backgroundImg.style.backgroundSize = "cover";
+  backgroundImg.classList.add("blur");
+};
+
+// 사진 대신 색상 구현 해야할 때
+const renderBackgroundColor = (index) => {
+  const color = musicListData[index].color;
+  backgroundImg.style.background = `linear-gradient(120deg, ${color[0]}, ${color[1]})`;
 };
 
 leftBtn.addEventListener("click", () => {
   if (selectAlbumIndex === null) return selectAlbum(0);
   const newIndex =
-    (selectAlbumIndex - 1 + musicListData.length * 2) % musicListData.length;
+    (selectAlbumIndex - 1 + musicListData.length) % musicListData.length;
   selectAlbum(newIndex);
 });
 
 rigthBtn.addEventListener("click", () => {
   if (selectAlbumIndex === null) return selectAlbum(0);
   const newIndex =
-    (selectAlbumIndex + 1 + musicListData.length * 2) % musicListData.length;
+    (selectAlbumIndex + 1 + musicListData.length) % musicListData.length;
   selectAlbum(newIndex);
 });
 
+let isPlaying = false;
 playBtn.addEventListener("click", () => {
-  disk.classList.add("active");
-  renderBackground();
+  isPlaying = true;
+  if (selectAlbumIndex !== null) {
+    currentAlbumIndex = selectAlbumIndex;
+    disk.classList.add("active");
+    renderBackgroundAlbumImg(currentAlbumIndex);
+  }
 });
 stopBtn.addEventListener("click", () => {
+  isPlaying = false;
   disk.classList.remove("active");
   backgroundImg.style.backgroundImage = "none";
-
   if (selectAlbumIndex !== null) {
-    const color = musicListData[selectAlbumIndex].color;
-    backgroundImg.style.background = `linear-gradient(120deg, ${color[0]}, ${color[1]})`;
+    renderBackgroundColor(currentAlbumIndex);
   }
 });
 /*
