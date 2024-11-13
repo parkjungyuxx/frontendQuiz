@@ -22,7 +22,6 @@ musicListData.map((el, i) => {
   const AlbumImg = document.createElement("img");
   AlbumImg.src = el.src;
   AlbumItem.appendChild(AlbumImg);
-  AlbumItem.id = i;
   AlbumContainer.appendChild(AlbumItem);
   AlbumItem.addEventListener("click", () => {
     selectAlbum(i);
@@ -58,16 +57,16 @@ const backgroundImg = document.querySelector(".filter");
 
 // 백그라운드 이미지 구현
 const renderBackgroundAlbumImg = (index) => {
+  backgroundImg.style.animation = "upToDown 1s linear";
   backgroundImg.style.backgroundImage = `url(./assets/img/iu_${index}.jpg)`;
   backgroundImg.style.backgroundSize = "cover";
-  backgroundImg.style.animation = "upToDown 1s linear";
 };
 
 // 사진 대신 색상 구현 해야할 때
 const renderBackgroundColor = (index) => {
+  // backgroundImg.style.animation = "downToUp 1s forwards"; // 요 기능을 넣고 싶음
   const color = musicListData[index].color;
   backgroundImg.style.background = `linear-gradient(120deg, ${color[0]}, ${color[1]})`;
-  backgroundImg.style.animation = "downToUp 1s forwards"; // 이거 넣엇을때 stop 상황에서 앨범 선택시 배경 색상 변경 이상하게됨
 };
 
 leftBtn.addEventListener("click", () => {
