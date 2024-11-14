@@ -56,22 +56,28 @@ const selectAlbum = (index) => {
 
 const backgroundImg = document.querySelector(".filter");
 const main = document.querySelector("main");
+
 // 백그라운드 이미지 구현
 const renderBackgroundAlbumImg = (index) => {
+  const color = musicListData[index].color;
+
+  renderBackgroundColor(index);
+
   backgroundImg.style.animation = "none"; // 요놈 play버튼 누를때 딱 처음만 적용되는 문제
-  backgroundImg.style.animation = "upToDown 1s linear";
+  requestAnimationFrame(
+    () => (backgroundImg.style.animation = "upToDown 1s linear")
+  );
   backgroundImg.style.backgroundImage = `url(./assets/img/iu_${index}.jpg)`;
   backgroundImg.style.backgroundSize = "cover";
   backgroundImg.style.filter = "blur(8px)";
-  const color = musicListData[index].color;
   diskInner.style.backgroundColor = `${color[0]}`;
 };
 
 // 사진 대신 색상 구현 해야할 때
 const renderBackgroundColor = (index) => {
-  // backgroundImg.style.animation = "downToUp 1s forwards"; // 요놈을 넣고싶음
   const color = musicListData[index].color;
-  backgroundImg.style.background = `linear-gradient(120deg, ${color[0]}, ${color[1]})`;
+
+  main.style.background = `linear-gradient(120deg, ${color[0]}, ${color[1]})`;
   diskInner.style.backgroundColor = `${color[0]}`;
 };
 
@@ -90,6 +96,7 @@ rigthBtn.addEventListener("click", () => {
 });
 
 let isPlaying = false;
+
 playBtn.addEventListener("click", () => {
   isPlaying = true;
   if (selectAlbumIndex !== null) {
@@ -101,10 +108,11 @@ playBtn.addEventListener("click", () => {
 stopBtn.addEventListener("click", () => {
   isPlaying = false;
   disk.classList.remove("active");
-  backgroundImg.style.backgroundImage = "none";
-  if (selectAlbumIndex !== null) {
-    renderBackgroundColor(currentAlbumIndex);
-  }
+  backgroundImg.style.animation = "downToUp 1s linear";
+  setTimeout(() => {
+    backgroundImg.style.backgroundImage = "none";
+  }, 1000);
+  requestAnimationFrame();
 });
 /*
 
