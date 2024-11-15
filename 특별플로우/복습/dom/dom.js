@@ -1,36 +1,58 @@
 const users = [
   {
     id: 1,
-    name: '김사과',
+    name: "김사과",
     age: 20,
     height: 190,
   },
   {
     id: 2,
-    name: '이수박',
+    name: "이수박",
     age: 32,
     height: 185,
   },
   {
     id: 3,
-    name: '오렌지',
+    name: "오렌지",
     age: 20,
     height: 180,
   },
   {
     id: 4,
-    name: '이멜론',
+    name: "이멜론",
     age: 28,
     height: 175,
   },
 ];
 
-const $info = document.querySelector('#info');
-$info.innerHTML = `
-    <div>${users[0].name}</div>
-    <div>${users[0].age}</div>
-    <div>${users[0].height}</div>
+const $info = document.querySelector("#info");
+const prevBtn = document.querySelector("#prev");
+const nextBtn = document.querySelector("#next");
+
+let indexNum = 0;
+
+const updateUserInfo = () => {
+  const currentUser = users[indexNum];
+  $info.innerHTML = `
+    <div>${currentUser.name}</div>
+    <div>${currentUser.age}</div>
+    <div>${currentUser.height}</div>
 `;
+};
+
+updateUserInfo();
+
+console.log(indexNum);
+
+prevBtn.addEventListener("click", () => {
+  indexNum = (indexNum - 1 + users.length) % users.length;
+  updateUserInfo();
+});
+
+nextBtn.addEventListener("click", () => {
+  indexNum = (indexNum + 1 + users.length) % users.length;
+  updateUserInfo();
+});
 
 /* 
 유저 목록 순서대로 보여주기

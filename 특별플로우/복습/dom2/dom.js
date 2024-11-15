@@ -1,8 +1,32 @@
-import mockPost from './mock.json' assert { type: 'json' };
+import mockPost from "./mock.js";
+
 console.log(mockPost);
 
-const $postDetail = document.querySelector('#post-detail');
-const $repliesList = document.querySelector('#replies-list');
+const $postDetail = document.querySelector("#post-detail");
+const $repliesList = document.querySelector("#replies-list");
+
+const pEl = document.createElement("p");
+pEl.innerText = mockPost.title;
+$postDetail.appendChild(pEl);
+
+mockPost.Replies.forEach((el, i) => {
+  const li = document.createElement("li");
+  li.innerText = el.content;
+  $repliesList.appendChild(li);
+});
+
+const addInput = document.querySelector("input");
+const addBtn = document.querySelector("button");
+
+addBtn.addEventListener("click", (event) => {
+  const newComment = addInput.value;
+  const li = document.createElement("li");
+  li.innerText = newComment;
+  $repliesList.appendChild(li);
+
+  mockPost.Replies.push({ content: newComment });
+  console.log(mockPost.Replies);
+});
 
 /* 
     import(참조)한 json data를
