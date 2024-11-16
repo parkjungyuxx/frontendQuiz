@@ -64,9 +64,10 @@ const renderBackgroundAlbumImg = (index) => {
   renderBackgroundColor(index);
 
   backgroundImg.style.animation = "none"; // 요놈 play버튼 누를때 딱 처음만 적용되는 문제
-  requestAnimationFrame(
-    () => (backgroundImg.style.animation = "upToDown 1s linear")
-  );
+  // requestAnimationFrame(
+  //   () => (backgroundImg.style.animation = "upToDown 1s linear")
+  // );  
+  backgroundImg.style.animation = "upToDown 1s linear"
   backgroundImg.style.backgroundImage = `url(./assets/img/iu_${index}.jpg)`;
   backgroundImg.style.backgroundSize = "cover";
   backgroundImg.style.filter = "blur(8px)";
@@ -111,8 +112,8 @@ stopBtn.addEventListener("click", () => {
   backgroundImg.style.animation = "downToUp 1s linear";
   setTimeout(() => {
     backgroundImg.style.backgroundImage = "none";
-  }, 1000);
-  requestAnimationFrame();
+  }, 1000); // img -> 색상 애니메이션 안되는거 해결
+  // requestAnimationFrame();  //버벅이는거 해결
 });
 /*
 
